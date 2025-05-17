@@ -1,9 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.Gateway", "Dino.Gateway\Dino.Gateway.csproj", "{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReservationsService", "ReservationsService", "{2F8CB1C1-7949-4ECA-B410-6999338D8A01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RoomsService", "RoomsService", "{D73C5349-833C-4486-83A3-E2E1F78C6172}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentsService", "PaymentsService", "{12300F83-128C-4AA6-9AA6-E87F0326E492}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GuestsService", "GuestsService", "{F0A0E52B-809A-444F-92D2-83334896AD8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.ReservationsService.Api", "Services\ReservationsService\Dino.ReservationsService.Api\Dino.ReservationsService.Api.csproj", "{75163DA5-4F2C-4852-923C-6D57C7D19AA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.RoomsService.Api", "Services\RoomsService\Dino.RoomsService\Dino.RoomsService.Api\Dino.RoomsService.Api.csproj", "{2A05591E-53C6-42F7-9EFF-21FA42D1F812}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.PaymentsService.Api", "Services\PaymentsService\Dino.PaymentsService.Api\Dino.PaymentsService.Api.csproj", "{F13E748A-6ACE-4574-BCD0-2AC71111E9CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.GuestsService.Api", "Services\GuestsService\Dino.GuestsService.Api\Dino.GuestsService.Api.csproj", "{416F3EF0-C627-462C-B002-C9D8082A32EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +33,35 @@ Global
 		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75163DA5-4F2C-4852-923C-6D57C7D19AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75163DA5-4F2C-4852-923C-6D57C7D19AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75163DA5-4F2C-4852-923C-6D57C7D19AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75163DA5-4F2C-4852-923C-6D57C7D19AA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A05591E-53C6-42F7-9EFF-21FA42D1F812}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A05591E-53C6-42F7-9EFF-21FA42D1F812}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A05591E-53C6-42F7-9EFF-21FA42D1F812}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A05591E-53C6-42F7-9EFF-21FA42D1F812}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F13E748A-6ACE-4574-BCD0-2AC71111E9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F13E748A-6ACE-4574-BCD0-2AC71111E9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F13E748A-6ACE-4574-BCD0-2AC71111E9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F13E748A-6ACE-4574-BCD0-2AC71111E9CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{416F3EF0-C627-462C-B002-C9D8082A32EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{416F3EF0-C627-462C-B002-C9D8082A32EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{416F3EF0-C627-462C-B002-C9D8082A32EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{416F3EF0-C627-462C-B002-C9D8082A32EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F8CB1C1-7949-4ECA-B410-6999338D8A01} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D73C5349-833C-4486-83A3-E2E1F78C6172} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{12300F83-128C-4AA6-9AA6-E87F0326E492} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{F0A0E52B-809A-444F-92D2-83334896AD8A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{75163DA5-4F2C-4852-923C-6D57C7D19AA8} = {2F8CB1C1-7949-4ECA-B410-6999338D8A01}
+		{2A05591E-53C6-42F7-9EFF-21FA42D1F812} = {D73C5349-833C-4486-83A3-E2E1F78C6172}
+		{F13E748A-6ACE-4574-BCD0-2AC71111E9CC} = {12300F83-128C-4AA6-9AA6-E87F0326E492}
+		{416F3EF0-C627-462C-B002-C9D8082A32EC} = {F0A0E52B-809A-444F-92D2-83334896AD8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15D123BC-74F2-4E2B-B90B-5E22988B6A46}

@@ -1,0 +1,56 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/guests",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9091
+        }
+      ],
+      "UpstreamPathTemplate": "/api/guests",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/payments",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9092
+        }
+      ],
+      "UpstreamPathTemplate": "/api/payments",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/reservations",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9093
+        }
+      ],
+      "UpstreamPathTemplate": "/api/reservations",
+      "UpstreamHttpMethod": []
+    },
+    {
+      "DownstreamPathTemplate": "/rooms",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 9094
+        }
+      ],
+      "UpstreamPathTemplate": "/api/rooms",
+      "UpstreamHttpMethod": []
+    }
+  ],
+  "GlobalConfiguration": {
+    "RequestIdKey": "OcRequestId",
+    "AdministrationPath": "/administration"
+  }
+}

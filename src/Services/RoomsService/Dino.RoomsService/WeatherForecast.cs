@@ -1,4 +1,4 @@
-namespace Dino.Gateway
+namespace Dino.RoomsService
 {
     public class WeatherForecast
     {
