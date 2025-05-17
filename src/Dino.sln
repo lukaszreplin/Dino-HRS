@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.Gateway", "Dino.Gateway\Dino.Gateway.csproj", "{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CDA0B5-EF49-4B10-BED6-00DDB54ED3B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15D123BC-74F2-4E2B-B90B-5E22988B6A46}
+	EndGlobalSection
+EndGlobal

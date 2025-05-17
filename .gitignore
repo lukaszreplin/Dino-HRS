@@ -278,8 +278,12 @@ tools/Cake.CoreCLR
 .vscode
 tools
 .dotnet
-Dockerfile
 
 # .env file contains default environment variables for docker
 .env
-.git/
+
+.DS_Store
+
+# sqlite database
+*.db-shm
+*.db-wal
