@@ -1,0 +1,66 @@
+services:
+  api-gateway:
+    build:
+      context: ./Dino.Gateway
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./Dino.Gateway/ocelot.json:/app/ocelot.json
+    depends_on:
+      - guests-service
+      - payments-service
+      - rooms-service
+      - reservations-service
+
+  guests-service:
+    build:
+      context: ./Services/GuestsService/Dino.GuestsService.Api
+    environment:
+      - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
+    depends_on:
+      - mongodb
+
+  payments-service:
+    build:
+      context: ./Services/PaymentsService/Dino.PaymentsService.Api
+    environment:
+      - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
+    depends_on:
+      - mongodb
+
+  reservations-service:
+    build:
+      context: ./Services/ReservationsService/Dino.ReservationsService.Api
+    environment:
+      - DB_CONNECTION=Host=postgres;Database=reservations;Username=postgres;Password=postgres
+    depends_on:
+      - postgres
+
+  rooms-service:
+    build:
+      context: ./Services/RoomsService/Dino.RoomsService.Api
+    environment:
+      - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=reservations
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mongo-data:
+  postgres-data:
