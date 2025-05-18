@@ -1,19 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/guests",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "guests-service",
-          "Port": 8080
-        }
-      ],
-      "UpstreamPathTemplate": "/api/guests",
-      "UpstreamHttpMethod": []
-    },
-    {
-      "DownstreamPathTemplate": "/payments",
+      "DownstreamPathTemplate": "/payments/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -21,11 +9,11 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/payments",
+      "UpstreamPathTemplate": "/api/payments/{everything}",
       "UpstreamHttpMethod": []
     },
     {
-      "DownstreamPathTemplate": "/reservations",
+      "DownstreamPathTemplate": "/reservations/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -33,11 +21,11 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/reservations",
+      "UpstreamPathTemplate": "/api/reservations/{everything}",
       "UpstreamHttpMethod": []
     },
     {
-      "DownstreamPathTemplate": "/rooms",
+      "DownstreamPathTemplate": "/rooms/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -45,7 +33,7 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/rooms",
+      "UpstreamPathTemplate": "/api/rooms/{everything}",
       "UpstreamHttpMethod": []
     }
   ],

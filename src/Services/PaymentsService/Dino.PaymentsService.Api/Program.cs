@@ -1,4 +1,12 @@
 
+using Dino.PaymentsService.Api.DAL;
+using Dino.PaymentsService.Api.Dto;
+using Dino.PaymentsService.Api.Services;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
+
 namespace Dino.PaymentsService.Api
 {
     public class Program
@@ -6,6 +14,13 @@ namespace Dino.PaymentsService.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+            var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>() ?? new DatabaseSettings();
+            builder.Services.AddSingleton(databaseSettings);
+
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -27,11 +42,57 @@ namespace Dino.PaymentsService.Api
 
             app.UseAuthorization();
 
-            app.MapGet("/payments", (HttpContext httpContext) =>
+            var paymentsApi = app.MapGroup("/payments");
+
+            paymentsApi.MapGet("/{id}", async (IPaymentService paymentService, Guid id) =>
             {
-                return "All payments ok";
+                var payment = await paymentService.GetByIdAsync(id);
+                return payment != null ? Results.Ok(payment) : Results.NotFound();
             })
-            .WithName("Get payments")
+            .WithName("Get payment by Id")
+            .WithOpenApi();
+
+            paymentsApi.MapGet("/reservation/{reservationId}", async (Guid reservationId, IPaymentService paymentService) =>
+                Results.Ok(await paymentService.GetByReservationIdAsync(reservationId)))
+                .WithName("GetPaymentsByReservationId")
+                .WithOpenApi();
+
+            paymentsApi.MapPost("/process", async ([FromBody] ProcessPaymentRequest request, IPaymentService paymentService) =>
+            {
+                var payment = await paymentService.ProcessPaymentAsync(request);
+
+                var response = new PaymentResponse
+                {
+                    Id = payment.Id,
+                    ReservationId = payment.ReservationId,
+                    Amount = payment.Amount,
+                    Currency = payment.Currency,
+                    PaymentMethod = payment.PaymentMethod,
+                    Status = payment.Status,
+                    Date = payment.Date
+                };
+
+                return Results.Created($"/api/payments/{payment.Id}", response);
+            })
+            .WithName("Get payment by reservation Id")
+            .WithOpenApi();
+
+            paymentsApi.MapPut("/{id}/status", async (Guid id, PaymentStatusRequest request, IPaymentService paymentService) =>
+            {
+                var existingPayment = await paymentService.GetByIdAsync(id);
+
+                if (existingPayment == null)
+                    return Results.NotFound();
+
+                var validStatuses = new[] { "Processing", "Completed", "Failed", "Refunded" };
+
+                if (!validStatuses.Contains(request.Status))
+                    return Results.BadRequest($"Invalid status. Valid values are: {string.Join(", ", validStatuses)}");
+
+                var payment = await paymentService.UpdatePaymentStatusAsync(id, request.Status);
+                return Results.Ok(payment);
+            })
+            .WithName("UpdatePaymentStatus")
             .WithOpenApi();
 
             app.Run();

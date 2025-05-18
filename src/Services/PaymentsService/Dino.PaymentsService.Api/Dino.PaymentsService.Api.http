@@ -1,6 +1,13 @@
-@Dino.PaymentsService.Api_HostAddress = http://localhost:5159
+﻿@baseUrl = http://localhost:8080
+@paymentId = 3fa85f64-5717-4562-b3fc-2c963f66afa6
+@reservationId = 10a53b7c-09d4-48e1-bbaf-516e0e3afb72
 
-GET {{Dino.PaymentsService.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+POST {{baseUrl}}/api/payments/process
+Content-Type: application/json
 
-###
+{
+  "reservationId": "{{reservationId}}",
+  "amount": 349.99,
+  "currency": "PLN",
+  "paymentMethod": "CreditCard"
+}

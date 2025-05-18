@@ -9,21 +9,9 @@ services:
     volumes:
       - ./Dino.Gateway/ocelot.json:/app/ocelot.json
     depends_on:
-      - guests-service
       - payments-service
       - rooms-service
       - reservations-service
-    networks:
-      - dino-network
-
-  guests-service:
-    build:
-      context: .
-      dockerfile: ./Services/GuestsService/Dino.GuestsService.Api/Dockerfile
-    environment:
-      - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
-    depends_on:
-      - mongodb
     networks:
       - dino-network
 
@@ -93,6 +81,20 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - postgres
+    networks:
+      - dino-network
+
+  mongo-express:
+    image: mongo-express:latest
+    ports:
+      - "8051:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongodb
     networks:
       - dino-network
 
