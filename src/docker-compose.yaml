@@ -1,9 +1,11 @@
 services:
   api-gateway:
     build:
-      context: ./Dino.Gateway
+      context: .
+      dockerfile: ./Dino.Gateway/Dockerfile
     ports:
-      - "5000:5000"
+      - "8081:8081"
+      - "8080:8080"
     volumes:
       - ./Dino.Gateway/ocelot.json:/app/ocelot.json
     depends_on:
@@ -11,38 +13,52 @@ services:
       - payments-service
       - rooms-service
       - reservations-service
+    networks:
+      - dino-network
 
   guests-service:
     build:
-      context: ./Services/GuestsService/Dino.GuestsService.Api
+      context: .
+      dockerfile: ./Services/GuestsService/Dino.GuestsService.Api/Dockerfile
     environment:
       - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
     depends_on:
       - mongodb
+    networks:
+      - dino-network
 
   payments-service:
     build:
-      context: ./Services/PaymentsService/Dino.PaymentsService.Api
+      context: .
+      dockerfile: ./Services/PaymentsService/Dino.PaymentsService.Api/Dockerfile
     environment:
       - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
     depends_on:
       - mongodb
+    networks:
+      - dino-network
 
   reservations-service:
     build:
-      context: ./Services/ReservationsService/Dino.ReservationsService.Api
+      context: .
+      dockerfile: ./Services/ReservationsService/Dino.ReservationsService.Api/Dockerfile
     environment:
       - DB_CONNECTION=Host=postgres;Database=reservations;Username=postgres;Password=postgres
     depends_on:
       - postgres
+    networks:
+      - dino-network
 
   rooms-service:
     build:
-      context: ./Services/RoomsService/Dino.RoomsService.Api
+      context: .
+      dockerfile: ./Services/RoomsService/Dino.RoomsService.Api/Dockerfile
     environment:
       - MONGO_CONNECTION=mongodb://mongodb:27017/hotel
     depends_on:
       - mongodb
+    networks:
+      - dino-network
 
   mongodb:
     image: mongo:latest
@@ -50,6 +66,8 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - dino-network
 
   postgres:
     image: postgres:latest
@@ -60,7 +78,29 @@ services:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - dino-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@hotel.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - "8050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - dino-network
 
 volumes:
   mongo-data:
   postgres-data:
+  pgadmin-data:
+  
+networks:
+  dino-network:
+    driver: bridge

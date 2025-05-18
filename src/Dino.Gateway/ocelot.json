@@ -2,11 +2,11 @@
   "Routes": [
     {
       "DownstreamPathTemplate": "/guests",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9091
+          "Host": "guests-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/guests",
@@ -14,11 +14,11 @@
     },
     {
       "DownstreamPathTemplate": "/payments",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9092
+          "Host": "payments-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/payments",
@@ -26,11 +26,11 @@
     },
     {
       "DownstreamPathTemplate": "/reservations",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9093
+          "Host": "reservations-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/reservations",
@@ -38,11 +38,11 @@
     },
     {
       "DownstreamPathTemplate": "/rooms",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 9094
+          "Host": "rooms-service",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/api/rooms",

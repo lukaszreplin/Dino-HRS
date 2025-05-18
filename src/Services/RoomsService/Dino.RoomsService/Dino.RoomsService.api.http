@@ -1,6 +1,0 @@
-@Dino.RoomsService_HostAddress = http://localhost:5147
-
-GET {{Dino.RoomsService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
