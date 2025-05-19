@@ -1,6 +1,44 @@
-@Dino.Gateway_HostAddress = http://localhost:5272
+@Dino.Gateway_HostAddress = http://localhost:8080
 
-GET {{Dino.Gateway_HostAddress}}/weatherforecast/
+### Get all rooms
+
+GET {{Dino.Gateway_HostAddress}}/api/rooms
 Accept: application/json
 
-###
+### Get room by id
+
+GET {{Dino.Gateway_HostAddress}}/api/rooms/ca175d4b-16f7-4a5e-8a3c-71b64ffa0bdd
+Accept: application/json
+
+### Get all payments
+
+GET {{Dino.Gateway_HostAddress}}/api/payments
+Accept: application/json
+
+### Get payment by reservation id
+
+GET {{Dino.Gateway_HostAddress}}/api/payments/reservation/10a53b7c-09d4-48e1-bbaf-516e0e3afb72
+Content-Type: application/json
+
+### Get all reservations
+
+GET {{Dino.Gateway_HostAddress}}/api/reservations
+Accept: application/json
+
+### Get reservations by id
+
+GET {{Dino.Gateway_HostAddress}}/api/reservations/b69cb36e-496f-42a4-ae0d-c22bf22b19bd
+Accept: application/json
+
+### Create reservation
+
+POST {{Dino.Gateway_HostAddress}}/api/reservations
+Content-Type: application/json
+
+{
+  "checkIn": "2025-10-01",
+  "checkOut": "2025-10-10",
+  "roomId": "b3d40160-53f7-40d0-ae77-90dd6d15750c",
+  "GuestId": "7bab7976-586d-4363-ae9f-5a594d6b3a4a",
+  "pricePerDay": 200.99
+}

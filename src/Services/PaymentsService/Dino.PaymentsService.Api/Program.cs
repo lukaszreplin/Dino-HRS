@@ -44,6 +44,11 @@ namespace Dino.PaymentsService.Api
 
             var paymentsApi = app.MapGroup("/payments");
 
+            paymentsApi.MapGet("/", async (IPaymentService paymentService) =>
+                Results.Ok(await paymentService.GetAll()))
+                .WithName("Get all")
+                .WithOpenApi();
+
             paymentsApi.MapGet("/{id}", async (IPaymentService paymentService, Guid id) =>
             {
                 var payment = await paymentService.GetByIdAsync(id);

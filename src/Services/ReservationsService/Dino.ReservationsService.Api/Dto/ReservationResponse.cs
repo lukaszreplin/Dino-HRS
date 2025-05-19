@@ -1,0 +1,21 @@
+﻿namespace Dino.ReservationsService.Api.Dto
+{
+    public class ReservationResponse
+    {
+        public Guid Id { get; set; }
+
+        public DateOnly CheckIn { get; set; }
+
+        public DateOnly CheckOut { get; set; }
+
+        public Guid RoomId { get; set; }
+
+        public Guid GuestId { get; set; }
+
+        public string Status { get; set; }
+
+        public double TotalPrice { get; set; }
+
+        public string PaymentStatus { get; set; }
+    }
+}

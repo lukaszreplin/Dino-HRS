@@ -16,6 +16,11 @@ namespace Dino.PaymentsService.Api.Services
             _payments = database.GetCollection<Payment>(settings.PaymentsCollectionName);
         }
 
+        public async Task<IEnumerable<Payment>> GetAll()
+        {
+            return await _payments.Find(payment => true).ToListAsync();
+        }
+
         public async Task<Payment> GetByIdAsync(Guid id)
         {
             return await _payments.Find(payment => payment.Id == id).FirstOrDefaultAsync();
@@ -42,19 +47,6 @@ namespace Dino.PaymentsService.Api.Services
             };
 
             await _payments.InsertOneAsync(payment);
-
-            var random = new Random();
-            var success = random.Next(0, 10) < 8;
-
-            payment.Status = success ? "Completed" : "Failed";
-            payment.LastUpdated = DateTime.UtcNow;
-
-            var filter = Builders<Payment>.Filter.Eq(p => p.Id, payment.Id);
-            var update = Builders<Payment>.Update
-                .Set(p => p.Status, payment.Status)
-                .Set(p => p.LastUpdated, payment.LastUpdated);
-
-            await _payments.UpdateOneAsync(filter, update);
 
             return payment;
         }

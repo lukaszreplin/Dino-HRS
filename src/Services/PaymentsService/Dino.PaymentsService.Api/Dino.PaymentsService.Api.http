@@ -1,13 +1,23 @@
-﻿@baseUrl = http://localhost:8080
+﻿@baseUrl = https://localhost:44329
 @paymentId = 3fa85f64-5717-4562-b3fc-2c963f66afa6
 @reservationId = 10a53b7c-09d4-48e1-bbaf-516e0e3afb72
 
-POST {{baseUrl}}/api/payments/process
+POST {{baseUrl}}/payments/process
 Content-Type: application/json
 
 {
-  "reservationId": "{{reservationId}}",
+  "reservationId": "10a54b7c-09d4-48e1-bbaf-516e0e3afb72",
   "amount": 349.99,
   "currency": "PLN",
   "paymentMethod": "CreditCard"
 }
+
+###
+
+GET {{baseUrl}}/payments
+Content-Type: application/json
+
+###
+
+GET {{baseUrl}}/payments/reservation/10a54b7c-09d4-48e1-bbaf-516e0e3afb72
+Content-Type: application/json

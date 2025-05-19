@@ -1,5 +1,8 @@
 
 using Dino.ReservationsService.Api.DAL;
+using Dino.ReservationsService.Api.Dto;
+using Dino.ReservationsService.Api.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dino.ReservationsService.Api
@@ -16,6 +19,8 @@ namespace Dino.ReservationsService.Api
 
             // Dodaj automatyczne migracje przy starcie
             builder.Services.AddHostedService<MigrationService>();
+
+            builder.Services.AddScoped<IReservationService, ReservationService>();
 
             // Add services to the container.
             builder.Services.AddAuthorization();
@@ -37,11 +42,28 @@ namespace Dino.ReservationsService.Api
 
             app.UseAuthorization();
 
-            app.MapGet("/reservations", (HttpContext httpContext) =>
+            var paymentsApi = app.MapGroup("/reservations");
+
+            paymentsApi.MapGet("/", async (IReservationService reservationService) =>
+                Results.Ok(await reservationService.GetAll()))
+                .WithName("Get all")
+                .WithOpenApi();
+
+            paymentsApi.MapGet("/{id}", async (IReservationService reservationService, Guid id) =>
             {
-                return "All reservations ok";
+                var reservation = await reservationService.GetByIdAsync(id);
+                return reservation != null ? Results.Ok(reservation) : Results.NotFound();
             })
-            .WithName("Get reservations")
+            .WithName("Get reservation by Id")
+            .WithOpenApi();
+
+            paymentsApi.MapPost("/", async ([FromBody] NewReservationRequest request, IReservationService reservationService) =>
+            {
+                var response = await reservationService.CreateReservation(request);
+
+                return Results.Created($"/api/reservations/{response}", response);
+            })
+            .WithName("Get payment by reservation Id")
             .WithOpenApi();
 
             app.Run();

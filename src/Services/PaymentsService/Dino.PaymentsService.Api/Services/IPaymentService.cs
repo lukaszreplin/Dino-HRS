@@ -6,6 +6,7 @@ namespace Dino.PaymentsService.Api.Services
     public interface IPaymentService
     {
         Task<Payment> GetByIdAsync(Guid id);
+        Task<IEnumerable<Payment>> GetAll();
         Task<IEnumerable<Payment>> GetByReservationIdAsync(Guid reservationId);
         Task<Payment> ProcessPaymentAsync(ProcessPaymentRequest request);
         Task<Payment> UpdatePaymentStatusAsync(Guid id, string status);

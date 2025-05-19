@@ -1,6 +1,12 @@
-@Dino.RoomsService.Api_HostAddress = http://localhost:5136
+@baseUrl = http://localhost:8080
+@id = 94b8b642-0103-4a6e-8a82-1628f0ca18f9
 
-GET {{Dino.RoomsService.Api_HostAddress}}/weatherforecast/
+GET {{baseUrl}}/api/rooms
+Accept: application/json
+
+###
+
+GET {{baseUrl}}/api/rooms/{{id}}
 Accept: application/json
 
 ###
