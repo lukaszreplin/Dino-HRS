@@ -2,6 +2,7 @@
 using Dino.PaymentsService.Api.DAL;
 using Dino.PaymentsService.Api.Dto;
 using Dino.PaymentsService.Api.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
@@ -16,6 +17,25 @@ namespace Dino.PaymentsService.Api
             var builder = WebApplication.CreateBuilder(args);
 
             BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+            builder.Services.AddMassTransit(x =>
+            {
+                x.AddConsumer<PaymentRequestConsumer>();
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username("user");
+                        h.Password("password");
+                    });
+
+                    cfg.ReceiveEndpoint("payment-requests", e =>
+                    {
+                        e.ConfigureConsumer<PaymentRequestConsumer>(context);
+                    });
+                });
+            });
 
             var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>() ?? new DatabaseSettings();
             builder.Services.AddSingleton(databaseSettings);

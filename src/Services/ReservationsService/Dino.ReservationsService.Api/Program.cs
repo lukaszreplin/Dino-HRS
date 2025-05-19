@@ -2,6 +2,7 @@
 using Dino.ReservationsService.Api.DAL;
 using Dino.ReservationsService.Api.Dto;
 using Dino.ReservationsService.Api.Services;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +14,24 @@ namespace Dino.ReservationsService.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddMassTransit(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host("rabbitmq", "/", h =>
+                    {
+                        h.Username("user");
+                        h.Password("password");
+                    });
+
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
             builder.Services.AddDbContext<ReservationsDbContext>(options =>
             options.UseNpgsql(
                 builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            // Dodaj automatyczne migracje przy starcie
             builder.Services.AddHostedService<MigrationService>();
 
             builder.Services.AddScoped<IReservationService, ReservationService>();

@@ -1,11 +1,13 @@
-﻿using Dino.ReservationsService.Api.DAL;
+﻿using Dino.Contracts;
+using Dino.ReservationsService.Api.DAL;
 using Dino.ReservationsService.Api.DAL.Entities;
 using Dino.ReservationsService.Api.Dto;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dino.ReservationsService.Api.Services
 {
-    public class ReservationService(ReservationsDbContext reservationsDbContext) : IReservationService
+    public class ReservationService(ReservationsDbContext reservationsDbContext, IPublishEndpoint publishEndpoint) : IReservationService
     {
         public async Task<Guid> CreateReservation(NewReservationRequest request)
         {
@@ -20,6 +22,15 @@ namespace Dino.ReservationsService.Api.Services
             };
             await reservationsDbContext.Reservations.AddAsync(reservation);
             await reservationsDbContext.SaveChangesAsync();
+
+            decimal totalAmount = Convert.ToDecimal((request.CheckOut.DayNumber - request.CheckIn.DayNumber) * request.PricePerDay);
+
+            await publishEndpoint.Publish(new PaymentRequestMessage()
+            {
+                Amount = totalAmount,
+                ReservationId = reservation.Id,
+            });
+
             return reservation.Id;
         }
 

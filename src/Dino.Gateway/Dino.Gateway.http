@@ -17,7 +17,7 @@ Accept: application/json
 
 ### Get payment by reservation id
 
-GET {{Dino.Gateway_HostAddress}}/api/payments/reservation/10a53b7c-09d4-48e1-bbaf-516e0e3afb72
+GET {{Dino.Gateway_HostAddress}}/api/payments/reservation/757214a3-e2fa-4a0d-8bec-66b83210af96
 Content-Type: application/json
 
 ### Get all reservations
