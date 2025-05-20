@@ -19,11 +19,9 @@ namespace Dino.ReservationsService.Api
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("rabbitmq", "/", h =>
-                    {
-                        h.Username("user");
-                        h.Password("password");
-                    });
+                    var configuration = context.GetRequiredService<IConfiguration>();
+                    var host = configuration.GetConnectionString("RabbitMQConnection");
+                    cfg.Host(host);
 
                     cfg.ConfigureEndpoints(context);
                 });
@@ -32,8 +30,8 @@ namespace Dino.ReservationsService.Api
             var psqlConnectionString = builder.Configuration.GetConnectionString("reservations");
 
             builder.Services.AddDbContext<ReservationsDbContext>(options =>
-            options.UseNpgsql(psqlConnectionString
-                ));
+                options.UseNpgsql(psqlConnectionString
+                    ));
 
             builder.Services.AddHostedService<MigrationService>();
 
@@ -65,16 +63,16 @@ namespace Dino.ReservationsService.Api
 
             paymentsApi.MapGet("/", async (IReservationService reservationService) =>
                 Results.Ok(await reservationService.GetAll()))
-                .WithName("Get all")
-                .WithOpenApi();
+                        .WithName("Get all")
+                        .WithOpenApi();
 
             paymentsApi.MapGet("/{id}", async (IReservationService reservationService, Guid id) =>
-            {
-                var reservation = await reservationService.GetByIdAsync(id);
-                return reservation != null ? Results.Ok(reservation) : Results.NotFound();
-            })
-            .WithName("Get reservation by Id")
-            .WithOpenApi();
+                    {
+                        var reservation = await reservationService.GetByIdAsync(id);
+                        return reservation != null ? Results.Ok(reservation) : Results.NotFound();
+                    })
+                    .WithName("Get reservation by Id")
+                    .WithOpenApi();
 
             paymentsApi.MapPost("/", async ([FromBody] NewReservationRequest request, IReservationService reservationService) =>
             {
