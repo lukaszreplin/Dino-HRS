@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.RoomsService.Api", "Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.Contracts", "Dino.Contracts\Dino.Contracts.csproj", "{D24951A8-873F-43E2-A98E-3A74F8A0529E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.AppHost", "Dino.AppHost\Dino.AppHost.csproj", "{1089EF68-822F-4BB8-B3C2-0E59C5EF68B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dino.ServiceDefaults", "Dino.ServiceDefaults\Dino.ServiceDefaults.csproj", "{B6F19525-F8C3-5695-6064-114F1531BB09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,14 @@ Global
 		{D24951A8-873F-43E2-A98E-3A74F8A0529E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D24951A8-873F-43E2-A98E-3A74F8A0529E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D24951A8-873F-43E2-A98E-3A74F8A0529E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1089EF68-822F-4BB8-B3C2-0E59C5EF68B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1089EF68-822F-4BB8-B3C2-0E59C5EF68B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1089EF68-822F-4BB8-B3C2-0E59C5EF68B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1089EF68-822F-4BB8-B3C2-0E59C5EF68B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6F19525-F8C3-5695-6064-114F1531BB09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6F19525-F8C3-5695-6064-114F1531BB09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6F19525-F8C3-5695-6064-114F1531BB09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6F19525-F8C3-5695-6064-114F1531BB09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

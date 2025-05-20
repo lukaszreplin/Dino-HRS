@@ -1,4 +1,4 @@
-@Dino.Gateway_HostAddress = http://localhost:8080
+@Dino.Gateway_HostAddress = https://localhost:7232
 
 ### Get all rooms
 

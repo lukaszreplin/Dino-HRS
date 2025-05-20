@@ -14,11 +14,11 @@
     },
     {
       "DownstreamPathTemplate": "/reservations/{everything}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "reservations-service",
-          "Port": 8080
+          "Host": "localhost",
+          "Port": 7031
         }
       ],
       "UpstreamPathTemplate": "/api/reservations/{everything}",

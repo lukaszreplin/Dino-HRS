@@ -13,6 +13,7 @@ namespace Dino.ReservationsService.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.AddServiceDefaults();
 
             builder.Services.AddMassTransit(x =>
             {
@@ -28,9 +29,11 @@ namespace Dino.ReservationsService.Api
                 });
             });
 
+            var psqlConnectionString = builder.Configuration.GetConnectionString("reservations");
+
             builder.Services.AddDbContext<ReservationsDbContext>(options =>
-            options.UseNpgsql(
-                builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseNpgsql(psqlConnectionString
+                ));
 
             builder.Services.AddHostedService<MigrationService>();
 
@@ -44,6 +47,8 @@ namespace Dino.ReservationsService.Api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.MapDefaultEndpoints();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

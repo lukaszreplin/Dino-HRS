@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Dino.Contracts\Dino.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\Dino.ServiceDefaults\Dino.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
