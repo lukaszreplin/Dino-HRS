@@ -25,12 +25,14 @@ var reservationsService = builder.AddProject<Projects.Dino_ReservationsService_A
     .WaitFor(postgresdb)
     .WaitFor(rabbitMq);
 
-//var roomService = builder.AddProject<Projects.Dino_RoomsService_Api>("dino-roomsservice-api").WithReference(mongodb);
+var roomService = builder.AddProject<Projects.Dino_RoomsService_Api>("dino-roomsservice-api")
+    .WithReference(mongodb)
+    .WaitFor(mongodb);
 
 
-builder.AddProject<Projects.Dino_Gateway>("dino-gateway");
-//.WithReference(roomService)
-//.WithReference(reservationsService);
-//.WithReference(paymentsService);
+builder.AddProject<Projects.Dino_Gateway>("dino-gateway")
+.WithReference(roomService)
+.WithReference(reservationsService)
+.WithReference(paymentsService);
 
 builder.Build().Run();
