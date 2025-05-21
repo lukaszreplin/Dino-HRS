@@ -5,24 +5,19 @@ var password = builder.AddParameter("password", "postgres", secret: true);
 var rabbitUsername = builder.AddParameter("rabbitUsername", "user", secret: true);
 var rabbiqPassword = builder.AddParameter("rabbiqPassword", "password", secret: true);
 
-var postgres = builder.AddPostgres("postgres", username, password);
+var postgres = builder.AddPostgres("postgres", username, password).WithLifetime(ContainerLifetime.Session).WithPgAdmin();
 var postgresdb = postgres.AddDatabase("reservations");
 
-//var mongodb = builder.AddMongoDB("mongodb")
-//    .WithEnvironment("MONGO_INITDB_DATABASE", "hotel");
+var mongo = builder.AddMongoDB("mongodb").WithLifetime(ContainerLifetime.Session).WithMongoExpress();
+var mongodb = mongo.AddDatabase("hotel");
 
 var rabbitMq = builder.AddRabbitMQ("RabbitMQConnection", rabbitUsername, rabbiqPassword).WithManagementPlugin();
 
-//var pgAdmin = builder.AddContainer("pgadmin", "dpage/pgadmin4")
-//    .WithEnvironment("PGADMIN_DEFAULT_EMAIL", "admin@hotel.com")
-//    .WithEnvironment("PGADMIN_DEFAULT_PASSWORD", "admin123")
-//    .WithEnvironment("PGADMIN_LISTEN_PORT", "80")
-//    .WithEndpoint(targetPort: 80, port: 8080, name: "pgadmin-http");
-
-
-//var paymentsService = builder.AddProject<Projects.Dino_PaymentsService_Api>("dino-paymentsservice-api")
-//    .WithReference(mongodb)
-//    .WithReference(rabbitMq);
+var paymentsService = builder.AddProject<Projects.Dino_PaymentsService_Api>("dino-paymentsservice-api")
+    .WithReference(mongodb)
+    .WithReference(rabbitMq)
+    .WaitFor(mongodb)
+    .WaitFor(rabbitMq);
 
 var reservationsService = builder.AddProject<Projects.Dino_ReservationsService_Api>("dino-reservationsservice-api")
     .WithReference(postgresdb)

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Dino.ReservationsService.Api.DAL
+﻿namespace Dino.ReservationsService.Api.DAL
 {
     public class MigrationService : IHostedService
     {
@@ -23,7 +21,8 @@ namespace Dino.ReservationsService.Api.DAL
             try
             {
                 _logger.LogInformation("Applying migrations...");
-                await dbContext.Database.MigrateAsync(cancellationToken);
+                dbContext.Database.EnsureCreated();
+
                 _logger.LogInformation("Migrations applied successfully");
             }
             catch (Exception ex)

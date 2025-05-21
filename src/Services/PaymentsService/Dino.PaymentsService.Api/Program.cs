@@ -25,11 +25,9 @@ namespace Dino.PaymentsService.Api
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host("rabbitmq", "/", h =>
-                    {
-                        h.Username("user");
-                        h.Password("password");
-                    });
+                    var configuration = context.GetRequiredService<IConfiguration>();
+                    var host = configuration.GetConnectionString("RabbitMQConnection");
+                    cfg.Host(host);
 
                     cfg.ReceiveEndpoint("payment-requests", e =>
                     {
