@@ -3,42 +3,28 @@
     {
       "DownstreamPathTemplate": "/payments/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "payments-service",
-          "Port": 8080
-        }
-      ],
+      "ServiceName": "dino-paymentsservice-api",
       "UpstreamPathTemplate": "/api/payments/{everything}",
       "UpstreamHttpMethod": []
     },
     {
       "DownstreamPathTemplate": "/reservations/{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7031
-        }
-      ],
+      "DownstreamScheme": "http",
+      "ServiceName": "dino-reservationsservice-api",
       "UpstreamPathTemplate": "/api/reservations/{everything}",
       "UpstreamHttpMethod": []
     },
     {
       "DownstreamPathTemplate": "/rooms/{everything}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "rooms-service",
-          "Port": 8080
-        }
-      ],
+      "ServiceName": "dino-roomsservice-api",
       "UpstreamPathTemplate": "/api/rooms/{everything}",
       "UpstreamHttpMethod": []
     }
   ],
   "GlobalConfiguration": {
-    "RequestIdKey": "OcRequestId",
-    "AdministrationPath": "/administration"
+    "ServiceDiscoveryProvider": {
+      "Type": "AspireServiceDiscoveryProvider"
+    }
   }
 }
