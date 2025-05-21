@@ -9,11 +9,9 @@ namespace Dino.PaymentsService.Api.Services
     {
         private readonly IMongoCollection<Payment> _payments;
 
-        public PaymentService(DatabaseSettings settings, IConfiguration configuration)
+        public PaymentService(DatabaseSettings settings, IMongoClient mongoClient)
         {
-            var connectionString = configuration.GetConnectionString("hotel");
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
             _payments = database.GetCollection<Payment>(settings.PaymentsCollectionName);
         }
 

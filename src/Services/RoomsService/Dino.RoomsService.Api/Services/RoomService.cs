@@ -9,12 +9,10 @@ namespace Dino.RoomsService.Api.Services
         private readonly IMongoCollection<Room> _rooms;
         private readonly ILogger<RoomService> _logger;
 
-        public RoomService(DatabaseSettings settings, ILogger<RoomService> logger, IConfiguration configuration)
+        public RoomService(DatabaseSettings settings, ILogger<RoomService> logger, IMongoClient mongoClient)
         {
             _logger = logger;
-            var connectionString = configuration.GetConnectionString("hotel");
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
             _rooms = database.GetCollection<Room>(settings.RoomsCollectionName);
         }
 

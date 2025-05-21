@@ -19,6 +19,8 @@ namespace Dino.RoomsService.Api
             var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>() ?? new DatabaseSettings();
             builder.Services.AddSingleton(databaseSettings);
 
+            builder.AddMongoDBClient(connectionName: "hotel");
+
             builder.Services.AddScoped<IRoomService, RoomService>();
 
             // Add services to the container.

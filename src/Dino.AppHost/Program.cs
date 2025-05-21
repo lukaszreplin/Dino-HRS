@@ -31,8 +31,8 @@ var roomService = builder.AddProject<Projects.Dino_RoomsService_Api>("dino-rooms
 
 
 builder.AddProject<Projects.Dino_Gateway>("dino-gateway")
-.WithReference(roomService)
-.WithReference(reservationsService)
-.WithReference(paymentsService);
+    .WithReference(roomService)
+    .WithReference(reservationsService)
+    .WithReference(paymentsService);
 
 builder.Build().Run();

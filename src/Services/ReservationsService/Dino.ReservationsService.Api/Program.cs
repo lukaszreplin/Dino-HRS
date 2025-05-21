@@ -27,11 +27,7 @@ namespace Dino.ReservationsService.Api
                 });
             });
 
-            var psqlConnectionString = builder.Configuration.GetConnectionString("reservations");
-
-            builder.Services.AddDbContext<ReservationsDbContext>(options =>
-                options.UseNpgsql(psqlConnectionString
-                    ));
+            builder.AddNpgsqlDbContext<ReservationsDbContext>(connectionName: "reservations", c => c.DisableTracing = true);
 
             builder.Services.AddHostedService<MigrationService>();
 

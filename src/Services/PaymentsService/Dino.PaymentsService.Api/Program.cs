@@ -36,6 +36,8 @@ namespace Dino.PaymentsService.Api
                 });
             });
 
+            builder.AddMongoDBClient(connectionName: "hotel");
+
             var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>() ?? new DatabaseSettings();
             builder.Services.AddSingleton(databaseSettings);
 
