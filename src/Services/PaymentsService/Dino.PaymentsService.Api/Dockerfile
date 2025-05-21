@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/PaymentsService/Dino.PaymentsService.Api/Dino.PaymentsService.Api.csproj", "Services/PaymentsService/Dino.PaymentsService.Api/"]
+COPY ["Dino.Contracts/Dino.Contracts.csproj", "Dino.Contracts/"]
 RUN dotnet restore "./Services/PaymentsService/Dino.PaymentsService.Api/Dino.PaymentsService.Api.csproj"
 COPY . .
 WORKDIR "/src/Services/PaymentsService/Dino.PaymentsService.Api"

@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/RoomsService/Dino.RoomsService.Api/Dino.RoomsService.Api.csproj", "Services/RoomsService/Dino.RoomsService.Api/"]
+COPY ["Dino.Contracts/Dino.Contracts.csproj", "Dino.Contracts/"]
 RUN dotnet restore "./Services/RoomsService/Dino.RoomsService.Api/Dino.RoomsService.Api.csproj"
 COPY . .
 WORKDIR "/src/Services/RoomsService/Dino.RoomsService.Api"

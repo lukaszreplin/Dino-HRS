@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/ReservationsService/Dino.ReservationsService.Api/Dino.ReservationsService.Api.csproj", "Services/ReservationsService/Dino.ReservationsService.Api/"]
+COPY ["Dino.Contracts/Dino.Contracts.csproj", "Dino.Contracts/"]
 RUN dotnet restore "./Services/ReservationsService/Dino.ReservationsService.Api/Dino.ReservationsService.Api.csproj"
 COPY . .
 WORKDIR "/src/Services/ReservationsService/Dino.ReservationsService.Api"
